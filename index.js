@@ -1,26 +1,26 @@
 console.log('index.js: loaded');
 
 function main(){
-  fetchUserInfo('js-primer-example');
+  fetchUserInfo('js-primer-example')
+    // ここではJSONオブジェクトで解決されるPromise
+    .then((userInfo) => createView(userInfo))
+    // ここではHTML文字列で解決されるPromise
+    .then((view) => displayView(view))
+    // Promiseチェーンでエラーがあった場合はキャッチ
+    .catch((error) => {
+      console.error(`エラーが発生しました (${error})`);
+    });
 }
 
 function fetchUserInfo(userId){
-  fetch(`https://api.github.com/users/${encodeURIComponent(userId)}`)
+  return fetch(`https://api.github.com/users/${encodeURIComponent(userId)}`)
     .then(response => {
       if(!response.ok){
-        console.log('エラーレスポンス', response);
+        return Promise.reject(new Error(`${response.status}: ${response.statusText}`));
       } else {
-        return response.json().then(userInfo => {
-          // HTMLの組み立て
-          const view = createView(userInfo);
-          // HTMLの挿入
-          displayView(view);
-        });
+        return response.json()
       }
     })
-    .catch(error => {
-      console.log(error);
-    });
 }
 
 function createView(userInfo){
