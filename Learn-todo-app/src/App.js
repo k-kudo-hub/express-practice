@@ -1,12 +1,38 @@
 import { TodoListModel } from "./model/TodoListModel.js";
 import { TodoItemModel } from "./model/TodoItemModel.js";
-import { element, render } from "./view/html-util.js";
+import { render } from "./view/html-util.js";
+import { TodoListView } from "./view/TodoListView.js";
 
 export class App {
   constructor() {
     // 1. Construct TodoList.
     this.todoListModel = new TodoListModel()
   }
+
+  /**
+   * The Listener function called when adding a todo.
+   * @param { string } title
+   */
+  handleAdd( title ) {
+    this.todoListModel.addTodo(new TodoItemModel({ title, completed: false }));
+  }
+
+  /**
+   * The Listener function called when updating todo status.
+   * @param {{ id: number, completed: boolean }} param0 
+   */
+  handleUpdate({ id, completed }) {
+    this.todoListModel.updateTodo({ id, completed });
+  }
+
+  /**
+   * The Listener function called when deleting todo.
+   * @param {{ id }} param0 
+   */
+  handleDelete({ id }) {
+    this.todoListModel.deleteTodo({ id });
+  }
+
   mount() {
     const formElement = document.querySelector("#js-form");
     const inputElement = document.querySelector("#js-form-input");
@@ -14,31 +40,16 @@ export class App {
     const todoItemCountElement = document.querySelector("#js-todo-count");
     // 2. Update the display when the state of TodoListModel is updated.
     this.todoListModel.onChange(() => {
-      // The list element wrapping todo list.
-      const todoListElement = element`<ul />`;
       // Add each TodoItem element under todoListElement.
       const todoItems = this.todoListModel.getTodoItems();
-      todoItems.forEach(item => {
-        // When todo is done, add a check. Otherwise, remove the check.
-        const todoItemElement = item.completed
-          ? element`<li><input type="checkbox" class="checkbox" checked><s>${item.title}</s><button class="delete">x</button></li>`
-          : element`<li><input type="checkbox" class="checkbox">${item.title}<button class="delete">x</button></li>`
-        const inputCheckboxElement = todoItemElement.querySelector(".checkbox");
-        inputCheckboxElement.addEventListener("change", () => {
-          this.todoListModel.updateTodo({
-            id: item.id,
-            completed: !item.completed
-          });
-        });
-        // When delete button is clicked, delete item from TodoListModel.
-        const deleteButtonElement = todoItemElement.querySelector(".delete");
-        console.log(deleteButtonElement);
-        deleteButtonElement.addEventListener("click", () => {
-          this.todoListModel.deleteTodo({
-            id: item.id
-          });
-        });
-        todoListElement.appendChild(todoItemElement);
+      const todoListView = new TodoListView();
+      const todoListElement = todoListView.createElement(todoItems, {
+        onUpdateTodo: ({ id, completed }) => {
+          this.handleUpdate({ id, completed });
+        },
+        onDeleteTodo: ({ id }) => {
+          this.handleDelete({ id });
+        }
       });
       // Overwrite contents of containerElement by todoListElement.
       render(todoListElement, containerElement);
@@ -49,10 +60,7 @@ export class App {
     formElement.addEventListener("submit", (e) => {
       e.preventDefault();
       // Add new TodoItem for TodoList.
-      this.todoListModel.addTodo(new TodoItemModel({
-        title: inputElement.value,
-        completed: false
-      }));
+      this.handleAdd(inputElement.value);
       inputElement.value = "";
     });
   }
