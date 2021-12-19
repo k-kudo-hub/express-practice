@@ -31,3 +31,9 @@ app.get("/api/images/:imageId", (req, res, next) => {
   }
   res.json(image);
 })
+
+app.set('view engine', 'ejs');
+
+app.get("/", (req, res, next) => {
+  res.render("index", {});
+})
