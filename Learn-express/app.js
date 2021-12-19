@@ -28,13 +28,13 @@ var imageList = [
     id: "001",
     name: "001.png",
     type: "png",
-    dataUrl: "https://localhost:3000/src/images/001.png"
+    dataUrl: "https://localhost:3000/public/images/001.png"
   },
   {
     id: "002",
     name: "002.png",
     type: "png",
-    dataUrl: "https://localhost:3000/src/images/002.png"
+    dataUrl: "https://localhost:3000/public/images/002.png"
   }
 ]
 
