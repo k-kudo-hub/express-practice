@@ -11,6 +11,15 @@ const usersRouter  = require('./routes/users');
 
 const app = express();
 
+// Database connection setup
+const db = new dbClass(
+  dbConfig.host,
+  dbConfig.name,
+  dbConfig.user,
+  dbConfig.pass
+);
+db.connect();
+
 // view engine setup
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'ejs');
