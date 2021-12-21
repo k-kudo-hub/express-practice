@@ -1,4 +1,4 @@
-require('dotenv').config
+require('dotenv').config();
 
 const dbConfig = {
   host: process.env.MYSQL_HOSTNAME,
