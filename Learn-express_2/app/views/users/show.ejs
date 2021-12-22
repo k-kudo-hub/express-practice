@@ -1,0 +1,12 @@
+<%- include('../shared/header'); %>
+  <h1>Users Profile</h1>
+  <% if(user.length === 1) { %>
+    <% user.forEach(u => { %>
+      <p>ID: <%= u.id %></p>
+      <p>name: <%= u.name %></p>
+      <p>email: <%= u.email %></p>
+    <%  }) %>
+  <% } else { %>  
+    <p>We're sorry, missing user data.</p>
+  <% } %>
+<%- include('../shared/footer'); %>

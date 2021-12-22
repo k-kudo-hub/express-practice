@@ -17,6 +17,17 @@ router.get('/', function(req, res, next) {
   })().catch(next);
 });
 
+router.get('/:id', function(req, res, next) {
+  (async () => {
+    const id   = Number(req.params.id);
+    const sql  = 'SELECT * FROM `users` WHERE id = ?';
+    const user = await db.query(sql, [id]);
+    await console.log(user);
+    res.render('users/show', {
+      title: 'Profile',
+      user: user
+    });
+  })().catch(next);
 });
 
 module.exports = router;
