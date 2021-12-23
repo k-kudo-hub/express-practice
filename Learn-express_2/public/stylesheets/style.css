@@ -6,3 +6,28 @@ body {
 a {
   color: #00B7FF;
 }
+
+.text-center {
+  text-align: center !important;
+}
+
+.user-sex
+.user-paid {
+  font-size: 1rem;
+}
+
+.male {
+  color: blue;
+}
+
+.female {
+  color: red;
+}
+
+.other {
+  color: gray;
+}
+
+.user-paid {
+  color: gold;
+}

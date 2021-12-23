@@ -8,6 +8,9 @@
           <th>ID</th>
           <th>Name</th>
           <th>Email</th>
+          <th>Sex</th>
+          <th>Paid</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -16,6 +19,23 @@
             <td><a href="/users/<%= user.id %>"><%= user.id %></a></td>
             <td><%= user.name %></td>
             <td><%= user.email %></td>
+            <td class="text-center">
+              <% if(user.sex === 'MALE') { %>
+                <span class="user-sex male">●</span>
+              <% } %>
+              <% if(user.sex === 'FEMALE') { %>
+                <span class="user-sex female">●</span>
+              <% } %>
+              <% if(user.sex === 'OTHER') { %>
+                <span class="user-sex other">●</span>
+              <% } %>
+            </td>
+            <td class="text-center">
+              <% if(user.paid === 1) { %>
+                <span class="user-paid">●</span>
+              <% } %>
+            </td>
+            <td><a href="/users/<%= user.id %>/edit">Edit</a></td>
           </tr>
         <% }) %>
       </tbody>
