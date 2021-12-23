@@ -1,0 +1,30 @@
+<%- include('../shared/header'); %>
+  <h1><%= title %></h1>
+  <% if(user.length === 1) { %>
+    <% user.forEach(u => { %>
+      <form action="/users/<%= u.id %>/update" method='POST'>
+        <div>
+          <label for="name">Name</label>
+          <input type="text" name="name" value="<%= u.name %>">
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input type="text" name="email" value="<%= u.email %>">
+        </div>
+        <div>
+          <select id="sex_select" name="sex">
+            <option value="<%= u.sex %>">-- select --</option>
+            <option value="MALE">male</option>
+            <option value="FEMALE">female</option>
+            <option value="OTHER">others</option>
+          </select>
+        </div>
+        <div>
+          <button type='submit'>update</button>
+        </div>
+      </form>
+    <%  }) %>
+  <% } else { %>
+    <p>We're sorry, missing user data.</p>
+  <% } %>
+<%- include('../shared/footer'); %>
