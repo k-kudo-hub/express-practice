@@ -44,4 +44,14 @@ router.post('/:id/update', (req, res, next) => {
   })().catch(next);
 })
 
+router.get('/:id/delete', (req, res, next) => {
+  (async () => {
+    await User.delete(req.params.id);
+    res.render('users/delete', {
+      title: 'Profile Deleted',
+      message: 'The user has been deleted successfully.'
+    })
+  })().catch(next);
+})
+
 module.exports = router;

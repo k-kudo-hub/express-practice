@@ -30,4 +30,12 @@ class User {
     return db.query(sql, [name, email, sex, id]);
   }
 
+  delete(user_id) {
+    if(!user_id) throw new Error('User id is not defined.');
+    const sql = 'DELETE FROM `users` WHERE id = ?';
+    const id  = Number(user_id);
+    return db.query(sql, [id]);
+  }
+}
+
 module.exports = User;

@@ -11,6 +11,7 @@
           <th>Sex</th>
           <th>Paid</th>
           <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -35,7 +36,12 @@
                 <span class="user-paid">●</span>
               <% } %>
             </td>
-            <td><a href="/users/<%= user.id %>/edit">Edit</a></td>
+            <td>
+              <a href="/users/<%= user.id %>/edit">Edit</a>
+            </td>
+            <td>
+              <a href="/users/<%= user.id %>/delete">Delete</a>
+            </td>
           </tr>
         <% }) %>
       </tbody>
