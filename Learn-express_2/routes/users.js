@@ -40,7 +40,7 @@ router.post('/:id/update', (req, res, next) => {
     await User.update(req.params.id, params.name, params.email, params.sex);
     res.render('users/update', {
       title: 'Profile Updated',
-    })
+    });
   })().catch(next);
 })
 
@@ -50,7 +50,7 @@ router.get('/:id/delete', (req, res, next) => {
     res.render('users/delete', {
       title: 'Profile Deleted',
       message: 'The user has been deleted successfully.'
-    })
+    });
   })().catch(next);
 })
 
