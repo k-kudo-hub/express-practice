@@ -42,4 +42,17 @@ router.get('/:id/edit', function(req, res, next) {
     });
   })().catch(next);
 });
+
+router.post('/:id/update', (req, res, next) => {
+  (async () => {
+    const id = Number(req.params.id);
+    const params = req.body;
+    const sql = 'UPDATE users SET name = ?, email = ?, sex = ? WHERE id = ?';
+    await db.query(sql, [params.name, params.email, params.sex, id]);
+    res.render('users/update', {
+      title: 'Profile Updated',
+    })
+  })().catch(next);
+})
+
 module.exports = router;
