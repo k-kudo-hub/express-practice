@@ -1,5 +1,12 @@
 <%- include('../shared/header'); %>
   <h1><%= title %></h1>
+  <% if(errors && errors.length > 0) { %>
+    <ul>
+      <% for(i=0;i<errors.length;i++) { %>
+        <li style="color: red"><%= errors[i].msg %></li>
+      <% } %>
+    </ul>
+  <% } %>
   <% if(user.length === 1) { %>
     <% user.forEach(u => { %>
       <form action="/users/<%= u.id %>/update" method='POST'>

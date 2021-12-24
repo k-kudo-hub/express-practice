@@ -1,5 +1,7 @@
 const express   = require('express');
 const router    = express.Router();
+const userValidator = require('../app/validators/user.js');
+const { validationResult } = require('express-validator');
 const UserClass = require("../app/models/user.js");
 const User      = new UserClass();
 
@@ -30,18 +32,31 @@ router.get('/:id/edit', (req, res, next) => {
     res.render('users/edit', {
       title: 'Profile Edit',
       user: user,
+      errors: null
     });
   })().catch(next);
 });
 
-router.post('/:id/update', (req, res, next) => {
-  (async () => {
-    const params = req.body;
-    await User.update(req.params.id, params.name, params.email, params.sex);
-    res.render('users/update', {
-      title: 'Profile Updated',
-    });
-  })().catch(next);
+router.post('/:id/update', userValidator, (req, res, next) => {
+  const results = validationResult(req);
+  if(results.errors.length > 0) {
+    (async () => {
+      const user = await User.find(req.params.id);
+      res.render('users/edit', {
+        title: 'Profile Edit',
+        user: user,
+        errors: results.errors
+      });
+    })().catch(next);
+  } else {
+    (async () => {
+      const params = req.body;
+      await User.update(req.params.id, params.name, params.email, params.sex);
+      res.render('users/update', {
+        title: 'Profile Updated',
+      });
+    })().catch(next);
+  }
 })
 
 router.get('/:id/delete', (req, res, next) => {
