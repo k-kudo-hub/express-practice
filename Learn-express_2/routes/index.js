@@ -1,14 +1,13 @@
 const express        = require('express');
 const router         = express.Router();
-const DB             = require("../public/javascripts/db.js");
-const { siteConfig, dbConfig } = require("../config/environment/config.js");
+const { siteConfig } = require("../config/environment/config.js");
+const UserClass      = require("../app/models/user.js");
+const User           = new UserClass();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   (async () => {
-    const db    = new DB(dbConfig.host, dbConfig.name, dbConfig.user, dbConfig.pass);
-    const sql   = "SELECT * FROM `users` LIMIT 10";
-    const users = await db.query(sql);
+    const users = await User.all(10);
     res.render('index', {
       title: 'Express',
       siteName: siteConfig.title,

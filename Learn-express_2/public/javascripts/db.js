@@ -27,9 +27,6 @@ class DB {
     })
   }
 
-  // READ! 動いているが理解していない!
-  // TODO: Promiseの基本を理解したい
-
   // https://qiita.com/soarflat/items/1a9613e023200bbebcb3
   // 1. asyncは呼び出されるとPromiseを返す。
   // 2. asyncが値をreturnすると、Promiseは戻り値をresolveする。
@@ -37,7 +34,6 @@ class DB {
 
   async query(sql, value = []) {
     const data = await new Promise((resolve, reject) => {
-      // このletは怪しい?非同期的に処理されるリスク?
       let con = this._set();
       con.query(sql, value, (error, results, fields) => {
         // errorがあったらrejectする
