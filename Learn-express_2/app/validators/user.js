@@ -1,7 +1,6 @@
 const { check } = require('express-validator');
 
 const userValidator = [
-  
   check('name').not().isEmpty().withMessage('Enter your name.'),
   check('name').isLength({ max: 20 }).withMessage('Enter the name within 20 characters.'),
   check('email').not().isEmpty().withMessage('Enter your email.'),
