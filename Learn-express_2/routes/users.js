@@ -3,18 +3,11 @@ const router    = express.Router();
 const userValidator = require('../app/validators/user.js');
 const { validationResult } = require('express-validator');
 const UserClass = require("../app/models/user.js");
+const userController = require('../app/controllers/userController.js');
 const User      = new UserClass();
 
 /* GET users listing. */
-router.get('/', (req, res, next) => {
-  (async () => {
-    const users = await User.all(10);
-    res.render('users/index', {
-      title: 'User',
-      users: users
-    });
-  })().catch(next);
-});
+router.get('/', userController.index);
 
 router.get('/:id', (req, res, next) => {
   (async () => {
