@@ -19,6 +19,19 @@ module.exports = {
     }
   },
 
+  show: async(req, res, next) => {
+    try {
+      const id   = Number(req.params.id);
+      const user = await User.find(id);
+      res.render('users/show', {
+        title: 'Profile',
+        user: user
+      });
+    } catch (e) {
+      next(e);
+    }
+  },
+
   update: async(req, res, next) => {
     const results = validationResult(req);
     if(results.errors.length > 0) {

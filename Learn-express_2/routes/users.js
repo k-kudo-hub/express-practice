@@ -8,17 +8,6 @@ const User      = new UserClass();
 
 /* GET users listing. */
 router.get('/', userController.index);
-
-router.get('/:id', (req, res, next) => {
-  (async () => {
-    const user = await User.find(req.params.id);
-    res.render('users/show', {
-      title: 'Profile',
-      user: user
-    });
-  })().catch(next);
-});
-
 router.get('/:id/edit', (req, res, next) => {
   (async () => {
     const user = await User.find(req.params.id);
@@ -30,6 +19,7 @@ router.get('/:id/edit', (req, res, next) => {
   })().catch(next);
 });
 
+router.get('/:id', userController.show);
 router.post('/:id/update', userValidator, userController.update)
 
 router.get('/:id/delete', (req, res, next) => {
