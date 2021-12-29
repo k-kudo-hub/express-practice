@@ -65,6 +65,19 @@ const userController = {
         });
       })().catch(next);
     }
+  },
+
+  delete: async(req, res, next) => {
+    try {
+      const id = Number(req.params.id);
+      await User.delete(id);
+      res.render('users/delete', {
+        title: 'Profile Deleted',
+        message: 'The user has been deleted successfully.'
+      });
+    } catch (e) {
+      next(e);
+    }
   }
 }
 module.exports = userController;
