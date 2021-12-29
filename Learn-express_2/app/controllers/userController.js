@@ -70,7 +70,7 @@ const userController = {
   delete: async(req, res, next) => {
     try {
       const id = Number(req.params.id);
-      await User.delete(id);
+      await User.destroy(id);
       res.render('users/delete', {
         title: 'Profile Deleted',
         message: 'The user has been deleted successfully.'
