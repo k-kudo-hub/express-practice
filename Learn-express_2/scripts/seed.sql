@@ -7,13 +7,13 @@ CREATE TABLE `users`(
   `paid` BOOLEAN NOT NULL DEFAULT FALSE,
   INDEX(id)
 );
-INSERT INTO `users` (`id`,`name`,`email`) VALUES (1, "aa", "aa@example.com");
-INSERT INTO `users` (`id`,`name`,`email`) VALUES (2, "bb", "bb@example.com");
-INSERT INTO `users` (`id`,`name`,`email`) VALUES (3, "cc", "cc@example.com");
-INSERT INTO `users` (`id`,`name`,`email`) VALUES (4, "dd", "dd@example.com");
-INSERT INTO `users` (`id`,`name`,`email`) VALUES (5, "ee", "ee@example.com");
-INSERT INTO `users` (`id`,`name`,`email`) VALUES (6, "ff", "ff@example.com");
-INSERT INTO `users` (`id`,`name`,`email`) VALUES (7, "gg", "gg@example.com");
-INSERT INTO `users` (`id`,`name`,`email`) VALUES (8, "hh", "hh@example.com");
-INSERT INTO `users` (`id`,`name`,`email`) VALUES (9, "ii", "ii@example.com");
-INSERT INTO `users` (`id`,`name`,`email`) VALUES (10, "jj", "jj@example.com");
+INSERT INTO `users` VALUES (1, "aa", "aa@example.com", "MALE", 0);
+INSERT INTO `users` VALUES (2, "bb", "bb@example.com", "FEMALE", 0);
+INSERT INTO `users` VALUES (3, "cc", "cc@example.com", "MALE", 0);
+INSERT INTO `users` VALUES (4, "dd", "dd@example.com", "MALE", 0);
+INSERT INTO `users` VALUES (5, "ee", "ee@example.com", "FEMALE", 1);
+INSERT INTO `users` VALUES (6, "ff", "ff@example.com", "MALE", 0);
+INSERT INTO `users` VALUES (7, "gg", "gg@example.com", "MALE", 0);
+INSERT INTO `users` VALUES (8, "hh", "hh@example.com", "MALE", 0);
+INSERT INTO `users` VALUES (9, "ii", "ii@example.com", "FEMALE", 1);
+INSERT INTO `users` VALUES (10, "jj", "jj@example.com", "OTHER", 0);
