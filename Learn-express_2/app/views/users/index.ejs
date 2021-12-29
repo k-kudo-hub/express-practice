@@ -40,7 +40,7 @@
               <a href="/users/<%= user.id %>/edit">Edit</a>
             </td>
             <td>
-              <a href="/users/<%= user.id %>/delete">Delete</a>
+              <a href="/users/<%= user.id %>/delete" class='delete-button' onclick="return confirm('You are trying to delete a user. Are you really sure?')">Delete</a>
             </td>
           </tr>
         <% }) %>

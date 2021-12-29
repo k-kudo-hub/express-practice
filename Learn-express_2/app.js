@@ -2,17 +2,21 @@ const createError  = require('http-errors');
 const express      = require('express');
 const path         = require('path');
 const cookieParser = require('cookie-parser');
-const logger       = require('morgan');
 const indexRouter  = require('./routes/index');
 const usersRouter  = require('./routes/users');
-
+const fs           = require('fs-extra');
+const morgan       = require('./config/middlewares/morgan.js');
 const app = express();
+
+// writing access.log
+const logDir = path.join(__dirname, '/log');
+fs.existsSync(logDir) || fs.mkdirSync(logDir);
+app.use(morgan('combined', { stream: morgan.accessLogStream(logDir) }));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'ejs');
 
-app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

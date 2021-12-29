@@ -1,4 +1,4 @@
-const DB = require("../../public/javascripts/db.js");
+const DB = require("../../config/middlewares/db.js");
 const { dbConfig } = require("../../config/environment/config.js");
 const db = new DB(dbConfig.host, dbConfig.name, dbConfig.user, dbConfig.pass);
 
@@ -30,7 +30,7 @@ class User {
     return db.query(sql, [name, email, sex, id]);
   }
 
-  delete(user_id) {
+  destroy(user_id) {
     if(!user_id) throw new Error('User id is not defined.');
     const sql = 'DELETE FROM `users` WHERE id = ?';
     const id  = Number(user_id);

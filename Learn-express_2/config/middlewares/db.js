@@ -11,9 +11,8 @@ class DB {
   _set() {
     const con = mysql.createConnection({
       host: this.host,
-      database: this.name,
-      user: this.user,
       password: this.pass,
+      database: this.name,
       multipleStatements: true
     })
     return con;
