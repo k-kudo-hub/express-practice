@@ -30,27 +30,7 @@ router.get('/:id/edit', (req, res, next) => {
   })().catch(next);
 });
 
-router.post('/:id/update', userValidator, (req, res, next) => {
-  const results = validationResult(req);
-  if(results.errors.length > 0) {
-    (async () => {
-      const user = await User.find(req.params.id);
-      res.render('users/edit', {
-        title: 'Profile Edit',
-        user: user,
-        errors: results.errors
-      });
-    })().catch(next);
-  } else {
-    (async () => {
-      const params = req.body;
-      await User.update(req.params.id, params.name, params.email, params.sex);
-      res.render('users/update', {
-        title: 'Profile Updated',
-      });
-    })().catch(next);
-  }
-})
+router.post('/:id/update', userValidator, userController.update)
 
 router.get('/:id/delete', (req, res, next) => {
   (async () => {
