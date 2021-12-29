@@ -8,20 +8,9 @@ const User      = new UserClass();
 
 /* GET users listing. */
 router.get('/', userController.index);
-router.get('/:id/edit', (req, res, next) => {
-  (async () => {
-    const user = await User.find(req.params.id);
-    res.render('users/edit', {
-      title: 'Profile Edit',
-      user: user,
-      errors: null
-    });
-  })().catch(next);
-});
-
 router.get('/:id', userController.show);
+router.get('/:id/edit', userController.edit);
 router.post('/:id/update', userValidator, userController.update)
-
 router.get('/:id/delete', (req, res, next) => {
   (async () => {
     await User.delete(req.params.id);
